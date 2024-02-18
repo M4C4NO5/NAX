@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #22577A;
+  --secondary: #AFC1D6;
+  --tertiary: #AB92BF;
+  --auxiliar: #2F0147;
+  --support: #9999A1;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--tertiary);
+}
+
+.bg-auxiliar {
+  background-color: var(--auxiliar);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+
+.todo-checkbox {
+  background-color: var(--support);
+}
+
+.todo-checkbox:checked {
+  background-color: var(--auxiliar);
+}
