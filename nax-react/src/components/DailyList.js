@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 import Task from "./Task";
 import Button from './Button';
 
@@ -48,7 +49,9 @@ function DailyList() {
           return <Task key={item.id} action={handleCheckTask} {...item} />
         })}
       </div>
-      <Button text={"Add new habit"} link='./newhabit'/>
+      <Link to="newhabit">
+        <Button text={"Add new habit"} />
+      </Link>
     </div>
   );
 }
