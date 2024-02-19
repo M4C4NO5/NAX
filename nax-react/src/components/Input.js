@@ -1,4 +1,4 @@
-function Inpt({placeholder}) {
+function Input({placeholder}) {
   return (
     <div>
       <div className="relative">
@@ -19,4 +19,4 @@ function Inpt({placeholder}) {
   );
 }
 
-export default Inpt;
+export default Input;
