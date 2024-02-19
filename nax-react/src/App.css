@@ -18,6 +18,10 @@
   background-color: var(--primary);
 }
 
+button.bg-primary:hover {
+  background-color: var(--tertiary);
+}
+
 .bg-secondary {
   background-color: var(--secondary);
 }
