@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Task from "./Task";
+import Button from './Button';
 
 const defaultList = [
   {
@@ -47,6 +48,7 @@ function DailyList() {
           return <Task key={item.id} action={handleCheckTask} {...item} />
         })}
       </div>
+      <Button text={"Add new habit"} link='./newhabit'/>
     </div>
   );
 }
