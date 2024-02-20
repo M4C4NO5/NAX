@@ -10,7 +10,7 @@ const DEFAULT_HABIT = {
 
 function NewHabitForm() {
   const [newHabit, setNewHabit] = useState(DEFAULT_HABIT);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -46,7 +46,7 @@ function NewHabitForm() {
             <Input placeholder="Habit" value={newHabit.task} action={handleInputTask} />
           </div>
           <div className="flex items-center justify-center mb-16">
-            <Input placeholder="Hour" value={newHabit.hour} action={handleInputHour} />
+            <Input type="time" placeholder="Hour" value={newHabit.hour} action={handleInputHour} />
           </div>
           <div className="flex items-center justify-center">
             <Button text="Submit" type="submit" />

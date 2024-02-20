@@ -19,7 +19,7 @@
 }
 
 button.bg-primary:hover {
-  background-color: var(--tertiary);
+  background-color: var(--auxiliar);
 }
 
 .bg-secondary {
@@ -36,6 +36,14 @@ button.bg-primary:hover {
 
 .text-primary {
   color: var(--primary);
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.border-secondary {
+  border-color: var(--secondary);
 }
 
 

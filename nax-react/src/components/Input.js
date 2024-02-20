@@ -25,9 +25,7 @@ function Input({
           id={placeholder}
           onChange={action}
           value={value}
-          className={`border-b-2 py-1 border-[#AFC1D6] focus:outline-none bg-white focus:border-b-2 transition-colors duration-100 peer ${
-            focused || value ? "pb-1" : ""
-          }`}
+          className={`border-b-2 border-secondary py-1 focus:outline-none bg-white focus:border-b-2 transition-colors duration-100 peer ${focused || value ? "pb-1" : ""}`}
           required={required}
           autoComplete="off"
           onFocus={handleInputFocus}
@@ -35,9 +33,7 @@ function Input({
         />
         <label
           htmlFor={placeholder}
-          className={`absolute left-0 top-1 bg-white cursor-text transition-all duration-100 ${
-            focused || value ? "-top-4 text-xs" : ""
-          }`}
+          className={`absolute left-0 bg-white cursor-text transition-all duration-100 ${focused || value ? "-top-5 text-xs" : ""}`}
         >
           {placeholder}
         </label>
