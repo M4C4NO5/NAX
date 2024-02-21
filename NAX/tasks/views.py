@@ -8,7 +8,7 @@ from .serializers import *
 @api_view(['GET', 'POST'])
 def todo_list(request) :
     if request.method == 'GET':
-        data = Habit.objects.all()
+        data = Habit.objects.all().order_by('hour').values()
 
         serializer = HabitSerializer(data, context={'request': request}, many=True)
 
