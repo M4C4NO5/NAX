@@ -1,12 +1,10 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { API_URL_TODO, DEFAULT_HABIT } from '../constants/constants';
 
-const DEFAULT_HABIT = {
-  task: '',
-  hour: ''
-}
 
 function NewHabitForm() {
   const [newHabit, setNewHabit] = useState(DEFAULT_HABIT);
@@ -14,21 +12,26 @@ function NewHabitForm() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (newHabit.task === '' || newHabit.hour === '') {
+    if (newHabit.name === '' || newHabit.hour === '') {
       console.log('error');
       // TODO: inform about errors
       return;
     }
-    console.log(newHabit);
-    // TODO: post item to API
-    setNewHabit(DEFAULT_HABIT);
-    navigate('/');
+    axios.post(API_URL_TODO, newHabit).then(
+      // on success
+      () => {
+        setNewHabit(DEFAULT_HABIT);
+        navigate('/');
+      },
+      // on error
+      (data) => console.error(data)
+    );
   }
 
   const handleInputTask = event => {
     setNewHabit({
       ...newHabit,
-      task: event.target.value
+      name: event.target.value
     });
   }
 
@@ -43,7 +46,7 @@ function NewHabitForm() {
     <div className="flex items-center justify-center h-screen">
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
           <div className="flex items-center justify-center mb-16">
-            <Input placeholder="Habit" value={newHabit.task} action={handleInputTask} />
+            <Input placeholder="Habit" value={newHabit.name} action={handleInputTask} />
           </div>
           <div className="flex items-center justify-center mb-16">
             <Input type="time" placeholder="Hour" value={newHabit.hour} action={handleInputHour} />

@@ -2,7 +2,7 @@ import proptype from 'prop-types';
 
 function Task({
   id,
-  task,
+  name,
   hour,
   completed,
   action = () => {}
@@ -23,14 +23,15 @@ function Task({
           </svg>
         </span>
       </span>
-      <p className={`${completed && 'line-through'} mr-3 w-full`}>{task}</p>
+      <p className={`${completed && 'line-through'} mx-3 w-full`}>{name}</p>
       <p className={`${completed && 'line-through'} flex items-center underline stroke-black`}>{hour}</p>
     </span>
   );
 }
 
 Task.propTypes = {
-  task: proptype.string.isRequired,
+  id: proptype.number.isRequired,
+  name: proptype.string.isRequired,
   hour: proptype.string.isRequired,
   completed: proptype.bool.isRequired,
   action: proptype.func
