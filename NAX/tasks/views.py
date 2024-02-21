@@ -8,7 +8,7 @@ from .serializers import *
 @api_view(['GET', 'POST'])
 def todo_list(request) :
     if request.method == 'GET':
-        data = Habit.objects.all().order_by('hour').values()
+        data = Habit.objects.all().order_by('hour')
 
         serializer = HabitSerializer(data, context={'request': request}, many=True)
 
@@ -26,17 +26,17 @@ def todo_list(request) :
 @api_view(['PUT', 'DELETE'])
 def todo_detail(request, pk):
     try:
-        student = Habit.objects.get(pk=pk)
+        habit = Habit.objects.get(id=pk)
     except Habit.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        serializer = HabitSerializer(student, data=request.data,context={'request': request})
+        serializer = HabitSerializer(habit, data=request.data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        student.delete()
+        habit.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
