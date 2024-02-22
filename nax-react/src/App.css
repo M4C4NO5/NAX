@@ -51,6 +51,10 @@ button.bg-primary:hover {
 }
 
 
+.branding {
+  letter-spacing: 0.5rem;
+}
+
 .todo-checkbox {
   background-color: var(--support);
 }

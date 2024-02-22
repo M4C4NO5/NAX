@@ -3,6 +3,7 @@ import DailyList from "../components/DailyList";
 import axios from "axios";
 import { API_URL_SIMULATE, API_URL_TODO } from "../constants/constants";
 import Button from "../components/Button";
+import Header from "../components/Header";
 
 function DailyHabits() {
 
@@ -39,19 +40,22 @@ function DailyHabits() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center h-screen">
-      {/* Progress bar */}
-      <h3 className="text-lg mb-3">Tu progreso hoy:</h3>
-      <div className="w-96 h-4 mb-6 bg-support rounded-full">
-        <div className="h-4 bg-primary rounded-full ease-in-out delay-75 duration-500" style={{width: `${percentage}%`}} />
-      </div>
-      {/* List */}
-      <DailyList list={list} setList={setList} />
-      {/* Simulate button */}
-      <div className="mt-12">
-        <Button text="Simular día" action={simulateDay} />
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className="flex flex-col items-center justify-center h-screen">
+        {/* Progress bar */}
+        <h3 className="text-lg mb-3">Tu progreso hoy:</h3>
+        <div className="w-96 h-4 mb-6 bg-support rounded-full">
+          <div className="h-4 bg-primary rounded-full ease-in-out delay-75 duration-500" style={{width: `${percentage}%`}} />
+        </div>
+        {/* List */}
+        <DailyList list={list} setList={setList} />
+        {/* Simulate button */}
+        <div className="mt-12">
+          <Button text="Simular día" action={simulateDay} />
+        </div>
+      </main>
+    </>
   );
 }
 
