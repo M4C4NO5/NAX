@@ -1,9 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-
 from .models import Habit, Task
 from .serializers import *
+from datetime import timedelta
 
 @api_view(['GET', 'POST'])
 def todo_list(request) :
@@ -40,3 +40,19 @@ def todo_detail(request, pk):
     elif request.method == 'DELETE':
         habit.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def reset_habit(request):
+    habits = Habit.objects.all()
+    habits.update(completed=False)
+    lastTask= Task.objects.latest('date')
+    for habit in habits:
+        Task.objects.create(
+            name=habit.name,
+            hour=habit.hour,
+            completed=habit.completed,
+            date=lastTask.date + timedelta(days=1)
+        )
+    return Response(lastTask.date)
+

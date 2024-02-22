@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.conf import settings
+from datetime import timedelta
 
 # Create your models here.
 class Habit(models.Model):
@@ -19,13 +20,12 @@ class Task(models.Model):
     completed = models.BooleanField(null=False)
     date = models.DateField(null=False, default=timezone.now)
 
-@receiver(post_save, sender=Habit)
 
+@receiver(post_save, sender=Habit)
 def create_Task(sender, instance, created, **kwargs):
-    if instance.completed:
-        Task.objects.create(
-            name=instance.name,
-            hour=instance.hour,
-            completed=True,
-            date=timezone.now()
-        )
+    Task.objects.create(
+        name=instance.name,
+        hour=instance.hour,
+        completed=instance.completed,
+        date=timezone.now()
+    )
