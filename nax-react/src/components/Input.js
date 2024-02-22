@@ -5,27 +5,29 @@ function Input({
   value,
   placeholder,
   required = false,
+  active = false,
   action = () => {}
 }) {
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(active);
 
   const handleInputFocus = () => {
     setFocused(true);
   };
 
   const handleInputBlur = () => {
-    setFocused(false);
+    if (!active) {
+      setFocused(false);
+    }
   };
 
   return (
-    <div>
-      <div className="relative">
+      <div className="relative w-full">
         <input
           type={type}
           id={placeholder}
           onChange={action}
           value={value}
-          className={`border-b-2 border-secondary py-1 focus:outline-none bg-white focus:border-b-2 transition-colors duration-100 peer ${focused || value ? "pb-1" : ""}`}
+          className={`w-full border-b-2 border-secondary py-1 focus:outline-none bg-white focus:border-b-2 transition-colors duration-100 peer ${focused || value ? "pb-1" : ""}`}
           required={required}
           autoComplete="off"
           onFocus={handleInputFocus}
@@ -38,7 +40,6 @@ function Input({
           {placeholder}
         </label>
       </div>
-    </div>
   );
 }
 

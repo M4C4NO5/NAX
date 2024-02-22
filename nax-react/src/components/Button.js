@@ -6,7 +6,7 @@ function Button({
 })
 {
   return(
-    <button type={type} onClick={action} className="bg-primary text-white text-2xl font-bold py-5 px-10 rounded-xl">
+    <button type={type} onClick={action} className="bg-primary text-white text-xl py-4 px-8 rounded-xl">
       {text}
     </button>
   )

@@ -21,16 +21,16 @@ function DailyList({ list, setList }) {
 
   return (
     <div className="flex flex-col items-center bg-secondary p-8 rounded-lg w-96">
-      <div className="text-center rounded-full bg-primary p-2 w-32 mb-6">
-        <h3 className="text-2xl font-medium text-white">Daily</h3>
+      <div className="text-center rounded-full bg-primary p-5 w-60 mb-6">
+        <h3 className="text-2xl font-semibold text-white">Hábitos Diarios</h3>
       </div>
-      <div className="min-w-64">
+      <div className="min-w-64 my-4">
         {list.map(item => {
           return <Task key={item.id} action={handleCheckTask} {...item} />
         })}
       </div>
       <Link to="newhabit">
-        <Button text={"Add new habit"} />
+        <Button text="Añadir nuevo hábito" />
       </Link>
     </div>
   );

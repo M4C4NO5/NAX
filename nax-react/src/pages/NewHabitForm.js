@@ -43,16 +43,17 @@ function NewHabitForm() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h2 className="mb-16 text-2xl font-bold text-primary">Guardar nuevo hábito</h2>
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
           <div className="flex items-center justify-center mb-16">
-            <Input placeholder="Habit" value={newHabit.name} action={handleInputTask} />
+            <Input placeholder="Hábito" value={newHabit.name} action={handleInputTask} />
           </div>
           <div className="flex items-center justify-center mb-16">
-            <Input type="time" placeholder="Hour" value={newHabit.hour} action={handleInputHour} />
+            <Input type="time" placeholder="Hora" value={newHabit.hour} active={true} action={handleInputHour} />
           </div>
           <div className="flex items-center justify-center">
-            <Button text="Submit" type="submit" />
+            <Button text="Guardar" type="submit" />
           </div>
       </form>
     </div>
