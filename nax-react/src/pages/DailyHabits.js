@@ -45,7 +45,7 @@ function DailyHabits() {
       <main className="flex flex-col items-center justify-center h-screen">
         {/* Progress bar */}
         <h3 className="text-lg mb-3">Tu progreso hoy:</h3>
-        <div className="w-96 h-4 mb-6 bg-support rounded-full">
+        <div className="w-96 h-4 mb-2 bg-support rounded-full">
           <div className="h-4 bg-primary rounded-full ease-in-out delay-75 duration-500" style={{width: `${percentage}%`}} />
         </div>
         {/* List */}
