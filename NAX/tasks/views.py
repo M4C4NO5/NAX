@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from .models import Habit, Task
 from .serializers import *
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 @api_view(['GET', 'POST'])
 def todo_list(request) :
@@ -31,7 +31,7 @@ def todo_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        serializer = HabitSerializer(habit, data=request.data,context={'request': request})
+        serializer = HabitSerializer(habit, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -45,14 +45,18 @@ def todo_detail(request, pk):
 @api_view(['GET'])
 def reset_habit(request):
     habits = Habit.objects.all()
-    habits.update(completed=False)
-    lastTask= Task.objects.latest('date')
+    if Task.objects.exists() :
+        date = Task.objects.latest('date').date + timedelta(days=1)
+    else :
+        date = datetime.now()
+
     for habit in habits:
         Task.objects.create(
             name=habit.name,
             hour=habit.hour,
             completed=habit.completed,
-            date=lastTask.date + timedelta(days=1)
+            date=date
         )
-    return Response(lastTask.date)
+    habits.update(completed=False)
 
+    return Response(date)

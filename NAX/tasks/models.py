@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.dispatch import receiver
-from django.db.models.signals import post_save
-from django.conf import settings
-from datetime import timedelta
 
 # Create your models here.
 class Habit(models.Model):
@@ -20,8 +17,6 @@ class Task(models.Model):
     completed = models.BooleanField(null=False)
     date = models.DateField(null=False, default=timezone.now)
 
-
-@receiver(post_save, sender=Habit)
 def create_Task(sender, instance, created, **kwargs):
     Task.objects.create(
         name=instance.name,
