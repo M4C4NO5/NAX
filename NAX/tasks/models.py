@@ -10,6 +10,9 @@ class Habit(models.Model):
     hour = models.TimeField(null=False)
     completed = models.BooleanField(default=False)
 
+    class Meta:
+        unique_together = [['hour']]
+
 class Task(models.Model):
     id = models.AutoField(primary_key=True, null=False)
     name = models.CharField(max_length=100, null=False)

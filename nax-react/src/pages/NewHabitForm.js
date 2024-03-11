@@ -11,6 +11,7 @@ function NewHabitForm() {
   const [newHabit, setNewHabit] = useState(DEFAULT_HABIT);
   const navigate = useNavigate();
 
+
   const handleSubmit = event => {
     event.preventDefault();
     if (newHabit.name === '' || newHabit.hour === '') {
@@ -18,16 +19,18 @@ function NewHabitForm() {
       // TODO: inform about errors
       return;
     }
-    axios.post(API_URL_TODO, newHabit).then(
-      // on success
-      () => {
+    axios.post(API_URL_TODO, newHabit)
+      .then(() => {
         setNewHabit(DEFAULT_HABIT);
         navigate('/');
-      },
-      // on error
-      (data) => console.error(data)
-    );
+      })
+      .catch(error => {
+        console.error('Error:', error.response.data);
+        // Aquí puedes lanzar un error o manejar el error de otra manera
+        alert('Error al crear hábito');
+      });
   }
+
 
   const handleInputTask = event => {
     setNewHabit({
