@@ -23,4 +23,5 @@ urlpatterns = [
     re_path(r'^api/todo/$', views.todo_list),
     re_path(r'^api/todo/(\d+)$', views.todo_detail),
     re_path(r'^api/simulate/$', views.reset_habit),
+    re_path(r'^api/defaultHabits/$', views.create_default_habits),
 ]
