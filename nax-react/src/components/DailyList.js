@@ -2,13 +2,9 @@ import { Link } from "react-router-dom";
 import Task from "./Task";
 import Button from './Button';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { API_URL_TODO } from "../constants/constants";
-import { useState } from "react";
 
 function DailyList({ list, setList }) {
-
-  const navigate = useNavigate();
 
   const handleCheckTask = event => {
     const itemId = Number(event.target.id.substring(4));
@@ -23,9 +19,9 @@ function DailyList({ list, setList }) {
     setList(newList);
   }
 
-  const deletea = (itemid) => {
-    axios.delete(API_URL_TODO+itemid);
-    setList(list.filter(Task => Task.id !== itemid));
+  const deletea = (event) => {
+    axios.delete(API_URL_TODO+event.target.id);
+    setList(list.filter(task => task.id !== parseInt(event.target.id)));
   }
 
   return (
@@ -35,9 +31,7 @@ function DailyList({ list, setList }) {
       </div>
       <div className="min-w-64 my-4">
         {list.map(item => {
-          return (<div><Task key={item.id} action={handleCheckTask} {...item} />
-          <Button text="Borrar" action={() => {
-            deletea(item.id)}} /></div>)
+          return (<Task key={item.id} action={handleCheckTask} deleteHabitFunc={deletea} {...item} />)
         })}
       </div>
       <Link to="newhabit">
