@@ -62,7 +62,7 @@ function DailyHabits() {
   return (
     <>
       <Header />
-      <main className="flex flex-col items-center justify-center h-screen">
+      <main className="flex flex-col items-center justify-center flex-1 relative top-24">
         {/* Progress bar */}
         <h3 className="text-lg mb-3">Tu progreso hoy:</h3>
         <div className="w-96 h-4 mb-2 bg-support rounded-full">
