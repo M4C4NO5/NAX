@@ -56,6 +56,7 @@ def reset_habit(request):
 
     for habit in habits:
         Task.objects.create(
+            id_habit=habit.id,
             name=habit.name,
             hour=habit.hour,
             completed=habit.completed,

@@ -19,10 +19,11 @@ class Task(models.Model):
     hour = models.TimeField(null=False)
     completed = models.BooleanField(null=False)
     date = models.DateField(null=False, default=timezone.now)
+    id_habit= models.IntegerField(null=False)
 
 def create_Task(sender, instance, created, **kwargs):
     Task.objects.create(
-        id=instance.id,
+        id_habit=instance.id,
         name=instance.name,
         hour=instance.hour,
         completed=instance.completed,
