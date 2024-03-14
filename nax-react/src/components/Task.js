@@ -1,6 +1,10 @@
 import proptype from 'prop-types';
-import Button from './Button';
 import { useState } from "react";
+import { IconButton } from '@mui/material';
+import Button from "../components/Button";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ClearIcon from '@mui/icons-material/Clear';
+
 function Task({
   id,
   name,
@@ -14,7 +18,7 @@ function Task({
 
   return (
     <div>
-      <span className="flex w-full mb-5">
+      <span className="flex w-full mt-5">
         <span className="relative inline-flex items-center rounded-full cursor-pointer mr-3">
           <input
             type="checkbox"
@@ -31,10 +35,14 @@ function Task({
         <p className={`${completed && 'line-through'} mx-3 w-full`}>{name}</p>
         <p className={`${completed && 'line-through'} flex items-center underline stroke-black`}>{hour}</p>
       </span>
-      <Button text="Mostrar" action={toggleVisibility} />
+        <IconButton onClick={toggleVisibility}>
+          <ArrowDropDownIcon/>
+        </IconButton>
             {
             isHidden && <div>
-                <Button text="Borrar" id={id} action={deleteHabitFunc} />
+                <IconButton onClick={() => {deleteHabitFunc(id)}}>
+                  <ClearIcon/>
+                </IconButton>
               </div>
             }
     </div>

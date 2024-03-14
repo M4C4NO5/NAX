@@ -19,9 +19,9 @@ function DailyList({ list, setList }) {
     setList(newList);
   }
 
-  const deletea = (event) => {
-    axios.delete(API_URL_TODO+event.target.id);
-    setList(list.filter(task => task.id !== parseInt(event.target.id)));
+  const deleteTask = (id) => {
+    axios.delete(API_URL_TODO+id);
+    setList(list.filter(task => task.id !== id));
   }
 
   return (
@@ -31,7 +31,7 @@ function DailyList({ list, setList }) {
       </div>
       <div className="min-w-64 my-4">
         {list.map(item => {
-          return (<Task key={item.id} action={handleCheckTask} deleteHabitFunc={deletea} {...item} />)
+          return (<Task key={item.id} action={handleCheckTask} deleteHabitFunc={deleteTask} {...item} />)
         })}
       </div>
       <Link to="newhabit">
