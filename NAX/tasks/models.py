@@ -22,6 +22,7 @@ class Task(models.Model):
 
 def create_Task(sender, instance, created, **kwargs):
     Task.objects.create(
+        id=instance.id,
         name=instance.name,
         hour=instance.hour,
         completed=instance.completed,
