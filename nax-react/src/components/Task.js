@@ -1,8 +1,10 @@
 import proptype from 'prop-types';
 import { useState } from "react";
+import addNotification from 'react-push-notification';
 import { IconButton } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ClearIcon from '@mui/icons-material/Clear';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 function Task({
   id,
@@ -15,9 +17,19 @@ function Task({
   const toggleVisibility = () => {setIsHidden(!isHidden)};
   const [isHidden, setIsHidden] = useState(false);
 
+  const notification = () => {
+    addNotification({
+      title: 'Recordatorio Hábito',
+      subtitle: 'NAX',
+      message: `Es hora de ${name}. ¡No lo olvides!`,
+      theme: 'darkblue',
+      native: true // when using native, your OS will handle theming.
+    });
+  };
+
   return (
     <div>
-      <span className="flex w-full mt-5">
+      <span onMouseEnter={toggleVisibility} onMouseLeave={toggleVisibility} className="flex w-full mt-5">
         <span className="relative inline-flex items-center rounded-full cursor-pointer mr-3">
           <input
             type="checkbox"
@@ -32,18 +44,21 @@ function Task({
           </span>
         </span>
         <p className={`${completed && 'line-through'} mx-3 w-full`}>{name}</p>
-        <p className={`${completed && 'line-through'} flex items-center underline stroke-black`}>{hour}</p>
+        {
+          isHidden
+          ?
+          <span className="flex">
+            <IconButton onClick={() => {deleteHabitFunc(id)}} style={{padding: '0px'}}>
+              <ClearIcon/>
+            </IconButton>
+            <IconButton onClick={notification} style={{padding: '0px'}}>
+              <NotificationsActiveIcon />
+            </IconButton>
+          </span>
+          :
+          <p className={`${completed && 'line-through'} flex items-center underline stroke-black`}>{hour}</p>
+        }
       </span>
-        <IconButton onClick={toggleVisibility}>
-          <ArrowDropDownIcon/>
-        </IconButton>
-            {
-            isHidden && <div>
-                <IconButton onClick={() => {deleteHabitFunc(id)}}>
-                  <ClearIcon/>
-                </IconButton>
-              </div>
-            }
     </div>
   );
 }
