@@ -2,7 +2,6 @@ import proptype from 'prop-types';
 import { useState } from "react";
 import addNotification from 'react-push-notification';
 import { IconButton } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ClearIcon from '@mui/icons-material/Clear';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
@@ -14,8 +13,9 @@ function Task({
   action = () => {},
   deleteHabitFunc = () => {},
 }) {
-  const toggleVisibility = () => {setIsHidden(!isHidden)};
   const [isHidden, setIsHidden] = useState(false);
+
+  const toggleVisibility = () => setIsHidden(!isHidden);
 
   const notification = () => {
     addNotification({
@@ -29,7 +29,7 @@ function Task({
 
   return (
     <div>
-      <span onMouseEnter={toggleVisibility} onMouseLeave={toggleVisibility} className="flex w-full mt-5">
+      <span className="flex w-full mt-5">
         <span className="relative inline-flex items-center rounded-full cursor-pointer mr-3">
           <input
             type="checkbox"
@@ -47,7 +47,7 @@ function Task({
         {
           isHidden
           ?
-          <span className="flex">
+          <span className="flex w-11">
             <IconButton onClick={() => {deleteHabitFunc(id)}} style={{padding: '0px'}}>
               <ClearIcon/>
             </IconButton>
@@ -56,8 +56,21 @@ function Task({
             </IconButton>
           </span>
           :
-          <p className={`${completed && 'line-through'} flex items-center underline stroke-black`}>{hour}</p>
+          <p className={`${completed && 'line-through'} flex items-center underline stroke-black w-11`}>{hour}</p>
         }
+        <span className="ml-3 cursor-pointer m-auto" onClick={toggleVisibility}>
+          <svg height={20} viewBox="0 0 24 24" id="three-dots" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+            <g id="SVGRepo_bgCarrier" strokeWidth={0} />
+            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
+            <g id="SVGRepo_iconCarrier">
+              <g id="_20x20_three-dots--grey" data-name="20x20/three-dots--grey" transform="translate(24) rotate(90)">
+                <rect id="Rectangle" width={24} height={24} fill="none" /> <circle id="Oval" cx={1} cy={1} r={1} transform="translate(5 11)" stroke="#000000" strokeMiterlimit={10} strokeWidth="0.5" />
+                <circle id="Oval-2" data-name="Oval" cx={1} cy={1} r={1} transform="translate(11 11)" stroke="#000000" strokeMiterlimit={10} strokeWidth="0.5" />
+                <circle id="Oval-3" data-name="Oval" cx={1} cy={1} r={1} transform="translate(17 11)" stroke="#000000" strokeMiterlimit={10} strokeWidth="0.5" />
+              </g>
+            </g>
+          </svg>
+        </span>
       </span>
     </div>
   );
