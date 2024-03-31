@@ -22,7 +22,7 @@ def todo_list(request) :
                 serializer.save()
             except IntegrityError:
                 return Response({"error":"Habits cannot have the same hour."}, status=status.HTTP_406_NOT_ACCEPTABLE)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -7,7 +7,7 @@ function Button({
 })
 {
   return(
-    <button id={id} type={type} onClick={action} className="bg-primary text-white text-xl py-4 px-8 rounded-xl">
+    <button id={id} type={type} onClick={action} className="bg-primary text-white text-xl py-3 px-8 rounded-xl">
       {text}
     </button>
   )
