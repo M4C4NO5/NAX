@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { Logout } from "./Logout";
+import logo from "../assets/img/nax-logo.png";
 
 function Header() {
   return (
     <nav className="bg-primary fixed w-full z-20 top-0 start-0">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-5">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
         <Link to="/" className="flex items-center">
-          <h1 className="branding self-center text-4xl font-bold text-white whitespace-nowrap">NAX</h1>
+          <img src={logo} alt="Logo" width={150} />
         </Link>
         <Logout/>
         {/* <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
