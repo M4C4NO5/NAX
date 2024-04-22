@@ -3,7 +3,9 @@ import { useState } from "react";
 import addNotification from 'react-push-notification';
 import { IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import { DEFAULT_HABIT } from "../constants/constants";
+import Input from "./Input";
+import Button from './Button';
 
 function Task({
   id,
@@ -12,10 +14,19 @@ function Task({
   completed,
   action = () => {},
   deleteHabitFunc = () => {},
+  updateHabitFunc = () => {},
 }) {
   const [isHidden, setIsHidden] = useState(false);
+  const [newHabit, setNewHabit] = useState(DEFAULT_HABIT);
 
   const toggleVisibility = () => setIsHidden(!isHidden);
+
+  const handleInputTask = event => {
+    setNewHabit({
+      ...newHabit,
+      [event.target.id]: event.target.value
+    });
+  }
 
   const notification = () => {
     addNotification({
@@ -26,6 +37,11 @@ function Task({
       native: true // when using native, your OS will handle theming.
     });
   };
+
+  const updateAction = () => {
+    toggleVisibility();
+    updateHabitFunc(id,newHabit);
+  }
 
   return (
     <div>
@@ -51,9 +67,11 @@ function Task({
             <IconButton onClick={() => {deleteHabitFunc(id)}} style={{padding: '0px'}}>
               <ClearIcon/>
             </IconButton>
-            <IconButton onClick={notification} style={{padding: '0px'}}>
-              <NotificationsActiveIcon />
-            </IconButton>
+            <span className="flex mt-5">
+              <Input id="name" placeholder="Hábito" value={newHabit.name} action={handleInputTask} className="rounded-l-md w-3/5" />
+              <Input id="hour" type="time" placeholder="Hora" value={newHabit.hour} action={handleInputTask} className="rounded-r-md w-2/5" />
+            </span>
+            <Button text="Confirmar" action={() =>{updateAction()}} />
           </span>
           :
           <p className={`${completed && 'line-through'} flex items-center underline stroke-black w-11`}>{hour}</p>

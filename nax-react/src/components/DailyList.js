@@ -54,6 +54,30 @@ function DailyList({ list, setList }) {
     setList(list.filter(task => task.id !== id));
   }
 
+  const handleSubmitUpdate = (id,habit) => {
+    if (habit.name === '' || habit.hour === '') {
+      console.log('error');
+      // Aquí puedes lanzar un error o manejar el error de otra manera
+      alert('Debes llenar ambos campos');
+      return;
+    }
+    axios.put(API_URL_TODO+id, habit)
+      .then(() => {
+        setNewHabit(DEFAULT_HABIT);
+        axios.get(API_URL_TODO + "?format=json").then(
+          // on success
+          ({ data }) => setList(data),
+          // on error
+          (data) => console.error(data)
+        );
+      })
+      .catch(error => {
+        console.error('Error:', error.response.data);
+        // Aquí puedes lanzar un error o manejar el error de otra manera
+        alert('Error al actualizar hábito');
+      });
+  }
+
   return (
     <div className="flex flex-col items-center bg-secondary p-8 rounded-lg w-96">
       <div className="text-center rounded-full bg-primary p-5 w-60 mb-6">
@@ -61,7 +85,7 @@ function DailyList({ list, setList }) {
       </div>
       <div className="min-w-64 my-4">
         {list.map(item => {
-          return (<Task key={item.id} action={handleCheckTask} deleteHabitFunc={deleteTask} {...item} />)
+          return (<Task key={item.id} action={handleCheckTask} deleteHabitFunc={deleteTask} updateHabitFunc={handleSubmitUpdate} {...item} />)
         })}
         {
           !inputHidden
@@ -77,7 +101,8 @@ function DailyList({ list, setList }) {
       {
         inputHidden
         ? <Button text="Añadir nuevo hábito" action={() => setInputHidden(false)} />
-        : <Button text="Confirmar" action={handleSubmitCreate} />
+        : (<div><Button text="Confirmar" action={handleSubmitCreate} />
+        <Button text="Cancelar" action={() => setInputHidden(!inputHidden )}/></div>)
       }
     </div>
   );
