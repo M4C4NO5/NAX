@@ -9,6 +9,7 @@ class Habit(models.Model):
     name  = models.CharField(max_length=100, null=False)
     hour = models.TimeField(null=False)
     completed = models.BooleanField(default=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     class Meta:
         unique_together = [['hour']]
@@ -20,6 +21,7 @@ class Task(models.Model):
     completed = models.BooleanField(null=False)
     date = models.DateField(null=False, default=timezone.now)
     id_habit= models.IntegerField(null=False)
+    user_id= models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 def create_Task(sender, instance, created, **kwargs):
     Task.objects.create(
@@ -27,5 +29,6 @@ def create_Task(sender, instance, created, **kwargs):
         name=instance.name,
         hour=instance.hour,
         completed=instance.completed,
-        date=timezone.now()
+        date=timezone.now(),
+        user=instance.user_id
     )
