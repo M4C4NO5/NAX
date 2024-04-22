@@ -72,5 +72,3 @@ def reset_habit(request):
     habits.update(completed=False)
 
     return Response(date)
-
-

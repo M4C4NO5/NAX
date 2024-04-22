@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import DailyHabits from './pages/DailyHabits';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
+import Analytics from './pages/Analytics';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           } />
           <Route path='login' element={
             <LoginPage/>
+          } />
+          <Route path='analytics' element={
+            <Analytics/>
           } />
         </Routes>
       </BrowserRouter>
