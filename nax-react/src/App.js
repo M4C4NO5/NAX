@@ -2,6 +2,8 @@ import './App.css';
 import { Notifications } from 'react-push-notification';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import DailyHabits from './pages/DailyHabits';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 
 function App() {
   return (
@@ -11,6 +13,12 @@ function App() {
         <Routes>
           <Route path='' element={
             <DailyHabits />
+          } />
+          <Route path='register' element={
+            <RegisterPage/>
+          } />
+          <Route path='login' element={
+            <LoginPage/>
           } />
         </Routes>
       </BrowserRouter>
