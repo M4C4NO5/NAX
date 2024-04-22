@@ -18,29 +18,26 @@ function Login() {
     setLoginState({...loginState, [event.target.id]: event.target.value})
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    axios.post(API_URL_LOGIN, loginState).then(
-      // On success
-      ( data ) => {
-        localStorage.clear();
-        localStorage.setItem('access_token', data.access);
-        localStorage.setItem('refresh_token', data.refresh);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
-        navigate('');
-      },
-      // On error
-      ({ response }) => {
-        setLoginState({
-          ...loginState,
-          [loginFields[1].name]: ''
-        });
-        setErrorState(response.data.message)
-        setTimeout(() => {
-          setErrorState(null)
-        }, 5000);
-      }
-    );
+    const res = await axios.post(API_URL_LOGIN, loginState);
+    if (res.status === 200) {
+      const data = res.data;
+      localStorage.clear();
+      localStorage.setItem('access_token', data.access);
+      localStorage.setItem('refresh_token', data.refresh);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`;
+      navigate('/');
+    } else {
+      setLoginState({
+        ...loginState,
+        [loginFields[1].name]: ''
+      });
+      setErrorState(res.response.data.detail)
+      setTimeout(() => {
+        setErrorState(null)
+      }, 5000);
+    }
   }
 
   return(

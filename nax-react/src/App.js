@@ -11,7 +11,7 @@ function App() {
       <Notifications />
       <BrowserRouter>
         <Routes>
-          <Route path='' element={
+          <Route path='/' element={
             <DailyHabits />
           } />
           <Route path='register' element={

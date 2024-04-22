@@ -17,27 +17,23 @@ function Register() {
     setRegisterState({...registerState, [event.target.id]: event.target.value})
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     if(registerState.password === registerState.password_confirmation){
-      axios.post(API_URL_REGISTER, registerState).then(
-        // On success
-        ({response}) => {
-          navigate('/login');
-        },
-        // On error
-        ({response}) => {
-          setRegisterState({
-            ...registerState,
-            [registerFields[3].name]: '',
-            [registerFields[4].name]: ''
-          });
-          setErrorState(response.data.message)
-          setTimeout(() => {
-            setErrorState(null)
-          }, 5000);
-        }
-      );
+      const res = await axios.post(API_URL_REGISTER, registerState);
+      if (res.status === 200) {
+        navigate('/login');
+      } else {
+        setRegisterState({
+          ...registerState,
+          [registerFields[3].name]: '',
+          [registerFields[4].name]: ''
+        });
+        setErrorState(res.response.data.message)
+        setTimeout(() => {
+          setErrorState(null)
+        }, 5000);
+      }
     } else{
       setRegisterState({
         ...registerState,
