@@ -1,5 +1,6 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .models import Habit, Task
 from .serializers import *
@@ -7,15 +8,18 @@ from datetime import timedelta, datetime
 from django.db import IntegrityError
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def todo_list(request) :
     if request.method == 'GET':
-        data = Habit.objects.all().order_by('hour')
+        user_id = request.user.id
+        data = Habit.objects.filter(user_id=user_id).order_by('hour')
 
         serializer = HabitSerializer(data, context={'request': request}, many=True)
 
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        request.data['user_id'] = request.user.id
         serializer = HabitSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             try:
@@ -28,6 +32,7 @@ def todo_list(request) :
 
 
 @api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def todo_detail(request, pk):
     try:
         habit = Habit.objects.get(id=pk)
@@ -47,8 +52,9 @@ def todo_detail(request, pk):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def reset_habit(request):
-    habits = Habit.objects.all()
+    habits = Habit.objects.filter(user_id=request.user.id)
     if Task.objects.exists() :
         date = Task.objects.latest('date').date + timedelta(days=1)
     else :
@@ -60,26 +66,9 @@ def reset_habit(request):
             name=habit.name,
             hour=habit.hour,
             completed=habit.completed,
-            date=date
+            date=date,
+            user_id=request.user
         )
     habits.update(completed=False)
 
     return Response(date)
-
-@api_view(['POST'])
-def create_default_habits(request):
-    if request.method == "POST":
-        default_habits= [
-            {"name": "Hacer ejercicio", "hour": "8:00"},
-            {"name": "Comer potasio", "hour": "12:00"},
-            {"name": "Estudiar", "hour": "5:00"},
-            {"name": "Dormir", "hour": "9:00"}
-        ]
-
-        for habit_data in default_habits:
-            Habit.objects.create(
-                name=habit_data['name'], hour=habit_data['hour'])
-
-        return Response({'message': 'Default habits created successfully'}, status=201)
-
-

@@ -2,6 +2,9 @@ import './App.css';
 import { Notifications } from 'react-push-notification';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import DailyHabits from './pages/DailyHabits';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
+import Analytics from './pages/Analytics';
 
 function App() {
   return (
@@ -9,8 +12,17 @@ function App() {
       <Notifications />
       <BrowserRouter>
         <Routes>
-          <Route path='' element={
+          <Route path='/' element={
             <DailyHabits />
+          } />
+          <Route path='register' element={
+            <RegisterPage/>
+          } />
+          <Route path='login' element={
+            <LoginPage/>
+          } />
+          <Route path='analytics' element={
+            <Analytics/>
           } />
         </Routes>
       </BrowserRouter>

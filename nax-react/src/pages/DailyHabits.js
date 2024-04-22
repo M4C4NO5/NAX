@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DailyList from "../components/DailyList";
 import axios from "axios";
-import { API_URL_SIMULATE, API_URL_TODO, API_URL_DEFAULT_HABITS } from "../constants/constants";
+import { API_URL_SIMULATE, API_URL_TODO } from "../constants/constants";
 import Button from "../components/Button";
 import Header from "../components/Header";
 
@@ -37,26 +37,6 @@ function DailyHabits() {
       return item;
     });
     setList(newList);
-  };
-
-  const handleCreateDefaultHabits = () => {
-    axios.post(API_URL_DEFAULT_HABITS)
-      .then(response => {
-        alert('Hábitos por defecto creados correctamente');
-        // Realizar una solicitud GET para obtener la lista actualizada de hábitos
-        axios.get(API_URL_TODO + "?format=json")
-          .then(({ data }) => {
-            // Actualizar el estado 'list' con la nueva lista
-            setList(data);
-          })
-          .catch(error => {
-            console.error('Error al obtener la lista actualizada:', error);
-          });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert("Ha ocurrido un error al crear hábitos por defecto");
-      });
   };
 
   return (
