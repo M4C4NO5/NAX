@@ -12,7 +12,7 @@ class Habit(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     class Meta:
-        unique_together = [['hour']]
+        unique_together = [['user_id', 'hour']]
 
 class Task(models.Model):
     id = models.AutoField(primary_key=True, null=False)
@@ -30,5 +30,5 @@ def create_Task(sender, instance, created, **kwargs):
         hour=instance.hour,
         completed=instance.completed,
         date=timezone.now(),
-        user=instance.user_id
+        user_id=instance.user_id
     )

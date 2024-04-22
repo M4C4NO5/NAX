@@ -4,13 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-
-
-class HomeView(APIView):
-    permission_classes = (IsAuthenticated, )
-    def get(self, request):
-        content = {'message': 'Welcome to the JWT Authentication page using React Js and Django!'}
-        return Response(content)
+from tasks.models import Habit
 
 class LogoutView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -35,6 +29,21 @@ class RegisterView(APIView):
                 password=request.data["password"],
             )
             user.save()
+
+            default_habits = [
+                {"name": "Hacer ejercicio", "hour": "8:00"},
+                {"name": "Comer potasio", "hour": "12:00"},
+                {"name": "Estudiar", "hour": "5:00"},
+                {"name": "Dormir", "hour": "9:00"}
+            ]
+
+            for habit_data in default_habits:
+                Habit.objects.create(
+                    name=habit_data['name'],
+                    hour=habit_data['hour'],
+                    user_id=user
+                )
+
             return Response({'message': 'User was created'})
         except Exception as e:
             print(e)
