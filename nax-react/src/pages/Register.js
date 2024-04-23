@@ -52,12 +52,12 @@ function Register() {
       state={registerState}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      title="Create an account"
-      subtitle="Already have an account?"
-      link="Login"
+      title="Crea tu cuenta en NAX"
+      subtitle="¿Ya tienes una cuenta?"
+      link="Inicia sesión"
       linkUrl="/login"
       fields={registerFields}
-      buttonLabel="Register"
+      buttonLabel="Registro"
       error={errorState}
     />
   );

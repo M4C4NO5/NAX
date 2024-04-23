@@ -13,7 +13,11 @@ function DailyHabits() {
   useEffect(() => {
     axios.get(API_URL_TODO + "?format=json").then(
       // on success
-      ({ data }) => setList(data),
+      ({ data }) => {
+        if (data !== undefined) {
+          setList(data);
+        }
+      },
       // on error
       (data) => console.error(data)
     );

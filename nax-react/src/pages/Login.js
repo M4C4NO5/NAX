@@ -45,12 +45,12 @@ function Login() {
       state={loginState}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      title="Login to your account"
-      subtitle="Don't have an account?"
-      link="Register now"
+      title="Inicia sesión"
+      subtitle="¿No tienes una cuenta?"
+      link="Regístrate ahora"
       linkUrl="/register"
       fields={loginFields}
-      buttonLabel="Login"
+      buttonLabel="Inicia sesión"
       error={errorState}
     />
   );
