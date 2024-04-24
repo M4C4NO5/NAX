@@ -83,7 +83,7 @@ function DailyList({ list, setList }) {
       <div className="text-center rounded-full bg-primary p-5 w-60">
         <h3 className="text-2xl font-semibold text-white">Hábitos Diarios</h3>
       </div>
-      <div className="min-w-64 my-4">
+      <div className="w-full my-4">
         {list.map(item => {
           return (<Task key={item.id} action={handleCheckTask} deleteHabitFunc={deleteTask} updateHabitFunc={handleSubmitUpdate} {...item} />)
         })}
@@ -101,8 +101,11 @@ function DailyList({ list, setList }) {
       {
         inputHidden
         ? <Button text="Añadir nuevo hábito" action={() => setInputHidden(false)} />
-        : (<div><Button text="Confirmar" action={handleSubmitCreate} />
-        <Button text="Cancelar" action={() => setInputHidden(!inputHidden )}/></div>)
+        :
+        <div className="flex gap-4">
+          <Button text="Cancelar" action={() => setInputHidden(!inputHidden)}/>
+          <Button text="Confirmar" action={handleSubmitCreate} />
+        </div>
       }
     </div>
   );
