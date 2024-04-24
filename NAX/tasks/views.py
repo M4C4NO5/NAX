@@ -72,3 +72,32 @@ def reset_habit(request):
     habits.update(completed=False)
 
     return Response(date)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def streak(request):
+
+    tasks = Task.objects.filter(user_id=request.user.id).order_by('date')
+
+    streak = 0
+    day_completion = True
+    current_date = tasks[0].date
+
+    for task in tasks:
+        if task.date != current_date :
+            print(current_date)
+            if day_completion :
+                streak = streak + 1
+            else :
+                streak = 0
+            current_date = task.date
+            day_completion = True
+        if not task.completed :
+            day_completion = False
+
+    if day_completion :
+        streak = streak + 1
+    else :
+        streak = 0
+
+    return Response(streak)

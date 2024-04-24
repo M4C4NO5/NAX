@@ -42,6 +42,10 @@ button.bg-primary:hover {
   color: var(--primary);
 }
 
+.text-support {
+  color: var(--support);
+}
+
 .border-primary {
   border-color: var(--primary);
 }

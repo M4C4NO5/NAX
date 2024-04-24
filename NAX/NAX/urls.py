@@ -26,6 +26,7 @@ urlpatterns = [
     re_path(r'^api/todo/$', views.todo_list),
     re_path(r'^api/todo/(\d+)$', views.todo_detail),
     re_path(r'^api/simulate/$', views.reset_habit),
+    path('api/streak/', views.streak, name ='streak'),
     path('api/register/', viewsAuth.RegisterView.as_view(), name ='register'),
     path('api/logout/', viewsAuth.LogoutView.as_view(), name ='logout'),
     path('api/login/',

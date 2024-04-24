@@ -80,7 +80,7 @@ function DailyList({ list, setList }) {
 
   return (
     <div className="flex flex-col items-center bg-secondary p-8 rounded-lg w-96">
-      <div className="text-center rounded-full bg-primary p-5 w-60 mb-6">
+      <div className="text-center rounded-full bg-primary p-5 w-60">
         <h3 className="text-2xl font-semibold text-white">Hábitos Diarios</h3>
       </div>
       <div className="min-w-64 my-4">
