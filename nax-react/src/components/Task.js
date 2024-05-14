@@ -1,6 +1,5 @@
 import proptype from 'prop-types';
 import { useState } from "react";
-import addNotification from 'react-push-notification';
 import { IconButton } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -28,16 +27,6 @@ function Task({
       [event.target.id]: event.target.value
     });
   }
-
-  const notification = () => {
-    addNotification({
-      title: 'Recordatorio Hábito',
-      subtitle: 'NAX',
-      message: `Es hora de ${name}. ¡No lo olvides!`,
-      theme: 'darkblue',
-      native: true // when using native, your OS will handle theming.
-    });
-  };
 
   const updateAction = () => {
     toggleVisibility();
