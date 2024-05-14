@@ -70,7 +70,7 @@ function DailyHabits() {
   return (
     <>
       <Header />
-      <main className="flex justify-evenly px-20 relative top-28">
+      <main className="flex justify-evenly px-20 mt-10">
         <section className="flex flex-col items-center justify-center">
           {/* Progress bar */}
           <h3 className="text-lg mb-3">Tu progreso hoy</h3>
