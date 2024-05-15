@@ -46,6 +46,7 @@ def todo_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if habit.calendar_id :
+        print('ola')
         creds = None
         if os.path.exists("token.json"):
             creds = Credentials.from_authorized_user_file("token.json", SCOPES)
@@ -74,31 +75,32 @@ def todo_detail(request, pk):
         if serializer.is_valid():
             serializer.save()
 
-            date = datetime.now().date()
-            if habit.hour_end is None :
-                hour_end = habit.hour
-            else :
-                hour_end = habit.hour_end
+            if habit.calendar_id :
+                date = datetime.now().date()
+                if habit.hour_end is None :
+                    hour_end = habit.hour
+                else :
+                    hour_end = habit.hour_end
 
-            event = {
-                'summary': habit.name,
-                'description': habit.description,
-                'start': {
-                    'dateTime': str(date)+'T'+str(habit.hour)+'.000-05:00',
-                    'timeZone': 'America/Bogota'
-                },
-                'end': {
-                    'dateTime': str(date)+'T'+str(hour_end)+'.000-05:00',
-                    'timeZone': 'America/Bogota'
-                },
-                'recurrence': [
-                    'RRULE:FREQ=DAILY',
-                ],
-                'reminders': {
-                    'useDefault': True,
+                event = {
+                    'summary': habit.name,
+                    'description': habit.description,
+                    'start': {
+                        'dateTime': str(date)+'T'+str(habit.hour)+'.000-05:00',
+                        'timeZone': 'America/Bogota'
+                    },
+                    'end': {
+                        'dateTime': str(date)+'T'+str(hour_end)+'.000-05:00',
+                        'timeZone': 'America/Bogota'
+                    },
+                    'recurrence': [
+                        'RRULE:FREQ=DAILY',
+                    ],
+                    'reminders': {
+                        'useDefault': True,
+                    }
                 }
-            }
-            service.events().update(calendarId='primary', eventId=habit.calendar_id, body=event).execute()
+                service.events().update(calendarId='primary', eventId=habit.calendar_id, body=event).execute()
 
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
