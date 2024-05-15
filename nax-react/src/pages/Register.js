@@ -22,7 +22,7 @@ function Register() {
     if(registerState.password === registerState.password_confirmation){
       const res = await axios.post(API_URL_REGISTER, registerState);
       if (res.status === 200) {
-        navigate('/login');
+        navigate('/');
       } else {
         setRegisterState({
           ...registerState,
@@ -55,7 +55,7 @@ function Register() {
       title="Crea tu cuenta en NAX"
       subtitle="¿Ya tienes una cuenta?"
       link="Inicia sesión"
-      linkUrl="/login"
+      linkUrl="/"
       fields={registerFields}
       buttonLabel="Registro"
       error={errorState}

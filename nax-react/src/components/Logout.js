@@ -14,7 +14,7 @@ export const Logout = () => {
       (response) => {
         localStorage.clear();
         axios.defaults.headers.common['Authorization'] = null;
-        navigate('/login');
+        navigate('/');
       },
       // on error
       (error) => {

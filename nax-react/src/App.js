@@ -10,13 +10,13 @@ function App() {
     <div className='min-h-full h-screen'>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={
+          <Route path='home' element={
             <DailyHabits />
           } />
           <Route path='register' element={
             <RegisterPage/>
           } />
-          <Route path='login' element={
+          <Route path='/' element={
             <LoginPage/>
           } />
           <Route path='analytics' element={

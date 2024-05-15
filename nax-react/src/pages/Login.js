@@ -27,7 +27,7 @@ function Login() {
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
       axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`;
-      navigate('/');
+      navigate('/home');
     } else {
       setLoginState({
         ...loginState,
