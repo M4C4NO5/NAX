@@ -67,6 +67,8 @@ def todo_detail(request, pk):
 
     if request.method == 'PUT':
         request.data['user_id'] = request.user.id
+        if request.data['hour_end'] is None :
+            request.data['hour_end'] = request.data['hour']
         serializer = HabitSerializer(habit, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()

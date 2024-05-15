@@ -107,7 +107,7 @@ function DailyList({ list, setList }) {
           !inputHidden
           ? (
             <span className="flex mt-5">
-              <Input id="name" placeholder="Hábito" value={newHabit.name} action={handleInputTask} className="rounded-l-md w-3/5" />
+              <Input id="name" placeholder="Hábito" value={newHabit.name} action={handleInputTask} className="rounded-l-md w-3/5 placeholder:text-gray-600" />
               <Input id="hour" type="time" placeholder="Hora" value={newHabit.hour} action={handleInputTask} className="rounded-r-md w-2/5" />
             </span>
           )
