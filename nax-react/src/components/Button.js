@@ -4,7 +4,8 @@ function Button({
   id,
   type,
   action = () => {},
-  variant
+  variant,
+  className,
 })
 {
   let buttonClass = "bg-primary text-white text-xl py-3 px-8 rounded-xl"
@@ -22,7 +23,7 @@ function Button({
   }
 
   return(
-    <button id={id} type={type} onClick={action} className={buttonClass}>
+    <button id={id} type={type} onClick={action} className={`${buttonClass} ${className}`}>
       {text}
     </button>
   )

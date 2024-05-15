@@ -26,14 +26,11 @@ def todo_list(request) :
 
     elif request.method == 'POST':
         request.data['user_id'] = request.user.id
+        request.data['hour_end'] = request.data['hour']
         serializer = HabitSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            try:
-                serializer.save()
-            except IntegrityError:
-                return Response({"error":"Habits cannot have the same hour."}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -46,7 +43,6 @@ def todo_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if habit.calendar_id :
-        print('ola')
         creds = None
         if os.path.exists("token.json"):
             creds = Credentials.from_authorized_user_file("token.json", SCOPES)
@@ -149,7 +145,6 @@ def streak(request):
 
     for task in tasks:
         if task.date != current_date :
-            print(current_date)
             if day_completion :
                 streak = streak + 1
             else :

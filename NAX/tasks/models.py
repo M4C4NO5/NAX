@@ -14,9 +14,6 @@ class Habit(models.Model):
     description = models.TextField(null=True)
     calendar_id = models.CharField(max_length=150, null=True)
 
-    class Meta:
-        unique_together = [['user_id', 'hour']]
-
 class Task(models.Model):
     id = models.AutoField(primary_key=True, null=False)
     name = models.CharField(max_length=100, null=False)
