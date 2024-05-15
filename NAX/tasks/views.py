@@ -195,6 +195,10 @@ def calendar(request, pk):
         date = datetime.now().date()
 
         habit = Habit.objects.get(id=pk)
+
+        if habit.calendar_id is not None :
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         if habit.hour_end is None :
             hour_end = habit.hour
         else :
@@ -221,9 +225,9 @@ def calendar(request, pk):
         recurring_event = service.events().insert(calendarId='primary', body=event).execute()
         Habit.objects.filter(pk=habit.id).update(calendar_id=recurring_event['id'])
 
-        return Response({})
+        return Response(status=status.HTTP_201_CREATED)
 
     except HttpError as error:
         print(error)
-        return Response({})
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 

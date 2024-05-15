@@ -45,11 +45,15 @@ export function TaskDetail({
   }
 
   const addToCalendar = () => {
-    axios.get(API_URL_CALENDAR + id).then(() => {
+    axios.get(API_URL_CALENDAR + id)
+    .then(() => {
       setMessage("¡Hábito agregado a Google Calendar!");
       setTimeout(() => {
         setMessage(false);
       }, 8000);
+    })
+    .catch(() => {
+      setMessage("Ya ha sido agregado");
     })
   }
 
