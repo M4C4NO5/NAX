@@ -15,6 +15,8 @@ export const API_URL_TOKEN_REFRESH = 'http://localhost:8000/api/token/refresh/';
 
 export const API_URL_ANALYTICS = 'http://localhost:8000/api/analytics/';
 
+export const API_URL_CALENDAR = 'http://localhost:8000/api/calendar/';
+
 export const DEFAULT_HABIT = {
   name: '',
   hour: ''

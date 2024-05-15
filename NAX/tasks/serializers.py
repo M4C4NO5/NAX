@@ -10,10 +10,11 @@ class CustomTimeField(serializers.TimeField):
 
 class HabitSerializer(serializers.ModelSerializer):
     hour = CustomTimeField()
+    hour_end = CustomTimeField()
 
     class Meta:
         model = Habit
-        fields = ('id', 'name', 'hour', 'completed', 'user_id')
+        fields = ('id', 'name', 'hour', 'completed', 'user_id', 'description', 'calendar_id', 'hour_end')
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -21,5 +22,5 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id', 'name', 'hour', 'completed', 'date', 'user_id')
+        fields = ('id', 'name', 'hour', 'completed', 'date', 'user_id', 'description', 'calendar_id', 'hour_end')
 

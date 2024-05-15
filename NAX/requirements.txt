@@ -2,3 +2,6 @@ django
 djangorestframework
 django-cors-headers
 djangorestframework-simplejwt
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib

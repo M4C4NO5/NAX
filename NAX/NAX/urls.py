@@ -35,5 +35,6 @@ urlpatterns = [
     path('api/token/refresh/',
         jwt_views.TokenRefreshView.as_view(),
         name ='token_refresh'),
-    path('api/analytics/', viewsAnalytics.most_common_habits)
+    path('api/analytics/', viewsAnalytics.most_common_habits),
+    re_path(r'^api/calendar/(\d+)$', views.calendar),
 ]
